@@ -1,0 +1,41 @@
+#!/bin/bash
+# YOLOv5 Training Script
+# Usage: ./train.sh
+
+# Activate environment
+if [ -d "/root/miniconda/envs/yolov5_v62" ]; then
+    echo "Activating Conda environment: yolov5_v62"
+    source /root/miniconda/bin/activate yolov5_v62
+elif [ -f "/opt/pyenvs/yolov5_v62/bin/activate" ]; then
+    echo "Activating Venv: /opt/pyenvs/yolov5_v62"
+    source /opt/pyenvs/yolov5_v62/bin/activate
+else
+    echo "Warning: No specific environment found. Using current environment."
+fi
+
+# Define paths
+DATASET_YAML="/root/work/gpdla_sdk/datasets/processed/cat_dog_8000/data.yaml"
+WEIGHTS="yolov5n.pt"
+IMG_SIZE=640
+BATCH_SIZE=16
+EPOCHS=300
+DEVICE="0"
+
+echo "Starting YOLOv5 training..."
+echo "Data: $DATASET_YAML"
+echo "Weights: $WEIGHTS"
+echo "Device: $DEVICE"
+
+# Ensure we are in the right directory
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$DIR"
+
+python train.py \
+    --img $IMG_SIZE \
+    --batch $BATCH_SIZE \
+    --epochs $EPOCHS \
+    --data "$DATASET_YAML" \
+    --weights $WEIGHTS \
+    --device $DEVICE
+
+echo "Training complete."
