@@ -2,7 +2,7 @@
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 # Define paths (Windows format for PowerShell)
-$WORK_DIR = "D:\work_cv\gpdla_sdk\yolov5-6.2"
+$WORK_DIR = "D:\work_cv\gpdla_sdk\yolov5n-v6.2"
 $DATA_YAML = "D:\work_cv\gpdla_sdk\datasets\processed\coco80\data.yaml"
 $WEIGHTS = "yolov5n.pt"
 $PROJECT_DIR = "runs/train"

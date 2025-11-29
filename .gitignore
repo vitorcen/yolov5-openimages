@@ -42,6 +42,11 @@ coco/
 coco128/
 VOC/
 
+# Specific to this project
+/datasets/processed/*/images
+/datasets/processed/*/labels
+# /datasets/toolkits
+
 # MATLAB GitIgnore -----------------------------------------------------------------------------------------------------
 *.m~
 *.mat

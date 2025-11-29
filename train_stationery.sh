@@ -14,7 +14,7 @@ else
 fi
 
 # Define paths
-DATASET_YAML="/root/work/gpdla_sdk/datasets/processed/stationery_4200/dataset.yaml"
+DATASET_YAML="/root/work/gpdla_sdk/yolov5n-v6.2/datasets/processed/stationery_4200/dataset.yaml"
 WEIGHTS="yolov5n.pt"
 IMG_SIZE=640
 BATCH_SIZE=16

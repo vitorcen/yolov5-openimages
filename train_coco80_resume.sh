@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define paths
-WORK_DIR="/root/work/gpdla_sdk/yolov5-6.2"
+WORK_DIR="/root/work/gpdla_sdk/yolov5n-v6.2"
 # Point to the last checkpoint from the previous run
 # UPDATE THIS PATH if the actual run directory is different (e.g. coco80_yolov5n2)
 LAST_WEIGHTS="runs/train/coco80_yolov5n3/weights/last.pt"
@@ -27,7 +27,7 @@ fi
 # Run the training command (Start new training from last weights)
 # We set epochs to 150 (200 total - 50 already done)
 NEW_EPOCHS=150
-DATA_YAML="/root/work/gpdla_sdk/datasets/processed/coco80/data.yaml"
+DATA_YAML="/root/work/gpdla_sdk/yolov5n-v6.2/datasets/processed/coco80/data.yaml"
 PROJECT_DIR="runs/train"
 NAME="coco80_yolov5n_resume"
 

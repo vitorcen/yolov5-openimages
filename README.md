@@ -19,7 +19,7 @@ cd ../datasets
 ./download_stationery.sh
 
 # 3. 开始训练
-cd ../yolov5-6.2
+cd ../yolov5n-v6.2
 conda activate yolov5_v62  # 或 source /opt/pyenvs/yolov5_v62/bin/activate
 ./train_stationery.sh
 ```
@@ -119,7 +119,7 @@ cd ../datasets
 ./download_stationery.sh
 
 # 下载完成后返回训练
-cd ../yolov5-6.2
+cd ../yolov5n-v6.2
 ./train_stationery.sh
 ```
 

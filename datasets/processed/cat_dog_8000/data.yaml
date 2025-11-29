@@ -1,0 +1,30 @@
+# Pure COCO Pet Dataset 
+# Generated: 2025-08-08 18:55:24
+
+path: /root/work/gpdla_sdk/yolov5n-v6.2/datasets/processed/cat_dog_8000
+train: images/train
+val: images/val
+
+nc: 2
+names:
+  - cat
+  - dog
+
+# Dataset Statistics:
+# Training: ~3212 cats + ~3188 dogs = 6400
+# Validation: ~788 cats + ~812 dogs = 1600
+# Total: 8000 images
+
+# Data Source: COCO 2017 (Train + Val)
+# Quality: High-quality labeled data with precise bounding boxes
+# 
+# Image Quality:
+# - Average area ratio: 22.9%
+# - Average aspect ratio: 1.21
+# - All bounding boxes validated
+# 
+# Dataset Features:
+# - Pure single-target images preferred
+# - Balanced cat/dog distribution
+# - Proper train/val separation (80/20)
+# - YOLO format annotations
