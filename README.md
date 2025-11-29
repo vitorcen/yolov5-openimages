@@ -1,207 +1,210 @@
-# YOLOv5 v6.2 GPU环境配置指南
+[![](https://img.shields.io/badge/%F0%9F%87%A8%F0%9F%87%B3-%E4%B8%AD%E6%96%87%E7%89%88-ff0000?style=flat)](./README_zh.md)
 
-## 概述
+# YOLOv5 v6.2 GPU Environment Setup Guide
 
-本项目支持两种GPU训练环境配置方式：
-1. **Conda环境** (推荐) - 适合深度学习项目，依赖管理更强大
-2. **venv虚拟环境** - 轻量级，适合简单部署
+## Overview
 
-## 快速开始（完整流程）
+This project supports two GPU training environment configurations:
+1. **Conda Environment** (Recommended) - More powerful dependency management for deep learning projects
+2. **venv Virtual Environment** - Lightweight, suitable for simple deployments
+
+## Quick Start (Complete Workflow)
 
 ```bash
-# 1. 配置GPU环境（二选一）
-./conda.sh              # 使用Conda（推荐）
-# 或
-./venv.sh              # 使用venv
+# 1. Configure GPU environment (choose one)
+./conda.sh              # Use Conda (recommended)
+# or
+./venv.sh               # Use venv
 
-# 2. 下载文具数据集
+# 2. Download stationery dataset
 cd ../datasets
 ./download_stationery.sh
 
-# 3. 开始训练
+# 3. Start training
 cd ../yolov5n-v6.2
-conda activate yolov5_v62  # 或 source /opt/pyenvs/yolov5_v62/bin/activate
+conda activate yolov5_v62  # or source /opt/pyenvs/yolov5_v62/bin/activate
 ./train_stationery.sh
 ```
 
-## 硬件要求
+## Hardware Requirements
 
-- NVIDIA GPU (支持CUDA 12.1+)
-- 显存: 建议 >= 8GB (RTX 3060 或更高)
-- 驱动: NVIDIA Driver 560+ (支持CUDA 12.6)
+- NVIDIA GPU (CUDA 12.1+ support)
+- VRAM: Recommended >= 8GB (RTX 3060 or higher)
+- Driver: NVIDIA Driver 560+ (supports CUDA 12.6)
 
-## 方案一：Conda环境 (推荐)
+## Option 1: Conda Environment (Recommended)
 
-### 快速开始
+### Quick Start
 
 ```bash
-# 一键安装
+# One-click installation
 ./conda.sh
 
-# 激活环境
+# Activate environment
 conda activate yolov5_v62
 
-# 开始训练
+# Start training
 ./train.sh
 ```
 
-### 手动配置
+### Manual Configuration
 
 ```bash
-# 创建conda环境
+# Create conda environment
 conda create -n yolov5_v62 python=3.8 -y
 
-# 激活环境
+# Activate environment
 conda activate yolov5_v62
 
-# 安装PyTorch with CUDA 12.1
+# Install PyTorch with CUDA 12.1
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
-# 安装YOLOv5依赖
+# Install YOLOv5 dependencies
 pip install -r requirements.txt
 ```
 
-## 方案二：venv虚拟环境
+## Option 2: venv Virtual Environment
 
-### 快速开始
+### Quick Start
 
 ```bash
-# 一键安装
+# One-click installation
 ./venv.sh
 
-# 激活环境
+# Activate environment
 source /opt/pyenvs/yolov5_v62/bin/activate
 
-# 开始训练
+# Start training
 ./train.sh
 ```
 
-### 手动配置
+### Manual Configuration
 
 ```bash
-# 创建venv环境
+# Create venv environment
 mkdir -p /opt/pyenvs
 python3 -m venv /opt/pyenvs/yolov5_v62
 
-# 激活环境
+# Activate environment
 source /opt/pyenvs/yolov5_v62/bin/activate
 
-# 安装PyTorch with CUDA 12.1
+# Install PyTorch with CUDA 12.1
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
-# 安装YOLOv5依赖
+# Install YOLOv5 dependencies
 pip install -r requirements.txt
 ```
 
-## 验证GPU环境
+## Verify GPU Environment
 
 ```bash
-# 激活环境后运行
+# Run after activating environment
 python -c "import torch; print(f'PyTorch: {torch.__version__}'); print(f'CUDA available: {torch.cuda.is_available()}'); print(f'GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"N/A\"}')"
 ```
 
-预期输出：
+Expected output:
 ```
 PyTorch: 2.4.1+cu121
 CUDA available: True
 GPU: NVIDIA GeForce RTX 4090
 ```
 
-## 数据集准备
+## Dataset Preparation
 
-### Open Images 文具数据集
+### Open Images Stationery Dataset
 
-项目提供了自动下载Open Images文具数据集的脚本：
+The project provides scripts to automatically download the Open Images stationery dataset:
 
 ```bash
-# 下载80类文具/办公用品数据集
+# Download 80-class stationery/office supplies dataset
 cd ../datasets
 ./download_stationery.sh
 
-# 下载完成后返回训练
+# Return to training after download
 cd ../yolov5n-v6.2
 ./train_stationery.sh
 ```
 
-**数据集特点：**
-- **80个类别**：包含文具、办公用品、电子设备等
-- **目标数量**：每类100张训练图片 + 20张验证图片
-- **总计约8000张图片**
-- **自动组织为YOLOv5格式**
+**Dataset Features:**
+- **80 classes**: Including stationery, office supplies, electronic devices, etc.
+- **Target quantity**: 100 training images + 20 validation images per class
+- **Total ~8000 images**
+- **Auto-organized to YOLOv5 format**
 
-**数据集位置：** `../datasets/processed/stationery_4200/`
+**Dataset Location:** `../datasets/processed/stationery_4200/`
 
-### 使用自定义数据集
+### Using Custom Datasets
 
-如需使用其他数据集，编辑训练脚本中的 `DATASET_YAML` 路径。
+To use other datasets, edit the `DATASET_YAML` path in the training script.
 
-## 训练配置
+## Training Configuration
 
-编辑 `train.sh` 或 `train_stationery.sh` 修改训练参数：
+Edit `train.sh` or `train_stationery.sh` to modify training parameters:
 
 ```bash
-IMG_SIZE=640         # 图像尺寸
-BATCH_SIZE=16        # 批次大小 (根据显存调整)
-EPOCHS=300           # 训练轮数 (train.sh)
-EPOCHS=100           # 训练轮数 (train_stationery.sh - 类别多，收敛快)
-DEVICE="0"           # GPU设备 (0=第一块GPU, "cpu"=CPU)
+IMG_SIZE=640         # Image size
+BATCH_SIZE=16        # Batch size (adjust based on VRAM)
+EPOCHS=300           # Training epochs (train.sh)
+EPOCHS=100           # Training epochs (train_stationery.sh - more classes, faster convergence)
+DEVICE="0"           # GPU device (0=first GPU, "cpu"=CPU)
 ```
 
-## 常见问题
+## Troubleshooting
 
 ### 1. CUDA out of memory
-- 减小 `BATCH_SIZE` (如 16 -> 8 -> 4)
-- 减小 `IMG_SIZE` (如 640 -> 512)
+- Reduce `BATCH_SIZE` (e.g., 16 -> 8 -> 4)
+- Reduce `IMG_SIZE` (e.g., 640 -> 512)
 
-### 2. nvidia-smi找不到
-- 检查NVIDIA驱动是否安装
-- WSL2用户需在Windows安装NVIDIA驱动
+### 2. nvidia-smi not found
+- Check if NVIDIA driver is installed
+- WSL2 users need to install NVIDIA driver on Windows
 
-### 3. torch.cuda.is_available() 返回False
-- 确认安装的是GPU版PyTorch (cu121)
-- 检查CUDA版本兼容性
-- 重新运行 `conda.sh` 或 `venv.sh`
+### 3. torch.cuda.is_available() returns False
+- Verify GPU version of PyTorch is installed (cu121)
+- Check CUDA version compatibility
+- Re-run `conda.sh` or `venv.sh`
 
-### 4. Python版本问题
-- **推荐**: Python 3.8 - 3.10
-- YOLOv5在Python 3.11+可能有兼容性问题
+### 4. Python version issues
+- **Recommended**: Python 3.8 - 3.10
+- YOLOv5 may have compatibility issues with Python 3.11+
 
-### 5. 数据集下载问题
-- **下载时间长**: Open Images数据集较大，预计需要数小时
-- **部分类别图片不足**: 某些类别在Open Images中可能少于100张，脚本会尽量下载
-- **网络连接**: 需要稳定连接访问Google Cloud Storage
-- **磁盘空间**: 预留至少10GB空间存储数据集
+### 5. Dataset download issues
+- **Long download time**: Open Images dataset is large, expect several hours
+- **Insufficient images for some classes**: Some classes may have fewer than 100 images in Open Images
+- **Network connection**: Requires stable connection to Google Cloud Storage
+- **Disk space**: Reserve at least 10GB for dataset storage
 
-## 脚本说明
+## Script Reference
 
-### 环境配置脚本
+### Environment Setup Scripts
 
-| 脚本 | 用途 |
-|------|------|
-| `conda.sh` | Conda环境一键安装 |
-| `venv.sh` | venv环境一键安装 |
-| `check_gpu.py` | GPU环境验证脚本 |
+| Script | Purpose |
+|--------|---------|
+| `conda.sh` | One-click Conda environment installation |
+| `venv.sh` | One-click venv environment installation |
+| `check_gpu.py` | GPU environment verification script |
 
-### 训练脚本
+### Training Scripts
 
-| 脚本 | 用途 | 数据集 | 类别数 |
-|------|------|--------|--------|
-| `train.sh` | 通用训练脚本 | cat_dog_8000 | 8 |
-| `train_stationery.sh` | 文具数据集训练 | stationery_4200 | 80 |
+| Script | Purpose | Dataset | Classes |
+|--------|---------|---------|---------|
+| `train.sh` | General training script | cat_dog_8000 | 8 |
+| `train_stationery.sh` | Stationery dataset training | stationery_4200 | 80 |
 
-### 数据集脚本
+### Dataset Scripts
 
-| 脚本 | 位置 | 用途 |
-|------|------|------|
-| `download_stationery.sh` | `../datasets/` | 下载Open Images文具数据集 |
+| Script | Location | Purpose |
+|--------|----------|---------|
+| `download_stationery.sh` | `../datasets/` | Download Open Images stationery dataset |
 
-### 文档
+### Documentation
 
-| 文件 | 说明 |
-|------|------|
-| `README.md` | 本文档 |
+| File | Description |
+|------|-------------|
+| `README.md` | This document (English) |
+| `README_zh.md` | Chinese documentation |
 
-## 卸载环境
+## Uninstall Environment
 
 ### Conda
 ```bash
@@ -215,7 +218,7 @@ deactivate
 rm -rf /opt/pyenvs/yolov5_v62
 ```
 
-## 技术栈
+## Tech Stack
 
 - PyTorch 2.4.1 / 2.5.1
 - CUDA 12.1
