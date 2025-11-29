@@ -1,9 +1,9 @@
 # COCO 2017 dataset
 # Dataset root directory
-path: /root/work/gpdla_sdk/yolov5n-v6.2/datasets/processed/coco80
+path: datasets/processed/coco80
 train: images/train2017  # train images (relative to 'path')
 val: images/val2017  # val images (relative to 'path')
-test: test2017  # test images (optional)
+test: images/test2017  # test images (optional)
 
 # Classes
 nc: 80  # number of classes

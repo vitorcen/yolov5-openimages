@@ -36,7 +36,7 @@ python train.py \
     --img 640 \
     --batch 16 \
     --epochs 100 \
-    --data /root/work/gpdla_sdk/yolov5n-v6.2/datasets/processed/stationery_4200/dataset.yaml \
+    --data datasets/processed/stationery_4200/dataset.yaml \
     --weights yolov5s.pt
 
 # or use the custom training script

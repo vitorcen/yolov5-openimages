@@ -1,7 +1,7 @@
 # Pure COCO Pet Dataset 
 # Generated: 2025-08-08 18:55:24
 
-path: /root/work/gpdla_sdk/yolov5n-v6.2/datasets/processed/cat_dog_8000
+path: datasets/processed/cat_dog_8000
 train: images/train
 val: images/val
 

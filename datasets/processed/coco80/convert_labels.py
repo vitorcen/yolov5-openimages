@@ -5,8 +5,33 @@ from tqdm import tqdm
 import shutil
 
 def convert_coco_to_yolo():
+    # Get the directory where this script is located
+    processed_dir = Path(__file__).resolve().parent
+    # Assuming datasets_raw is at /root/work/datasets_raw
+    # You might want to make this configurable or relative too if possible,
+    # but for now let's keep it if it's an external dependency,
+    # OR if it's expected to be in a fixed location relative to the repo.
+    # Given the context, let's try to make it relative to the repo if feasible,
+    # or keep it as a configurable path.
+    # However, the original code had it hardcoded.
+    # Let's check if we can find it relative to the script.
+    # If not, we might have to keep it or ask the user.
+    # For this specific request, I'll change the processed_dir to be dynamic.
+    # The raw_dir seems to be a separate data directory.
+
+    # Let's use the original logic for raw_dir unless we know better,
+    # but definitely fix processed_dir.
+    # Actually, prepare_coco.sh sets these. Let's look at prepare_coco.sh first.
+    # The prepare_coco.sh generates this file!
+    # So I should edit prepare_coco.sh to generate the DYNAMIC version of this script.
+
+    # Wait, I am editing the file directly first as requested.
+    # If this file is generated, my changes might be overwritten if the script is run again.
+    # But the user asked to change these specific files.
+
+    # Let's fix the existing file to be dynamic.
     raw_dir = Path("/root/work/datasets_raw/coco")
-    processed_dir = Path("/root/work/gpdla_sdk/yolov5n-v6.2/datasets/processed/coco80")
+    processed_dir = Path(__file__).resolve().parent
 
     # Define mappings
     splits = [

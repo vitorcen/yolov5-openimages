@@ -5,8 +5,9 @@ source "$(conda info --base)/etc/profile.d/conda.sh"
 conda activate yolov5_v62
 
 # Define paths
+# Get the directory where the script is located
+PROCESSED_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 RAW_DATA_DIR="/root/work/datasets_raw/coco"
-PROCESSED_DIR="/root/work/gpdla_sdk/yolov5n-v6.2/datasets/processed/coco80"
 DATA_YAML="${PROCESSED_DIR}/data.yaml"
 
 echo "Preparing COCO dataset in ${PROCESSED_DIR}..."
@@ -42,7 +43,8 @@ import shutil
 
 def convert_coco_to_yolo():
     raw_dir = Path("${RAW_DATA_DIR}")
-    processed_dir = Path("${PROCESSED_DIR}")
+    # Use dynamic path for processed_dir
+    processed_dir = Path(__file__).resolve().parent
 
     # Define mappings
     splits = [
