@@ -15,7 +15,7 @@ NAME="stationery_32class_yolov5n"
 # Hyperparameters
 IMG_SIZE=640
 BATCH_SIZE=32
-EPOCHS=200
+EPOCHS=400
 DEVICE="0"
 WORKERS=8
 
