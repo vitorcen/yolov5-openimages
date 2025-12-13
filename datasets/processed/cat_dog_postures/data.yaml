@@ -1,0 +1,24 @@
+train: ../datasets/processed/cat_dog_postures/images/train
+val: ../datasets/processed/cat_dog_postures/images/val
+
+# number of classes
+nc: 16
+
+# class names
+names:
+  - cat_lying           # 猫-躺卧
+  - cat_crouching       # 猫-蹲伏
+  - cat_sitting         # 猫-坐姿
+  - cat_loaf            # 猫-母鸡蹲
+  - cat_standing        # 猫-站立
+  - cat_walking         # 猫-行走
+  - cat_grooming        # 猫-理毛
+  - cat_in_litterbox    # 猫-猫砂盆中
+  - dog_lying           # 狗-躺卧
+  - dog_sitting         # 狗-坐姿
+  - dog_standing        # 狗-站立
+  - dog_crouching       # 狗-蹲伏
+  - dog_walking         # 狗-行走
+  - dog_running         # 狗-奔跑
+  - dog_playing         # 狗-玩耍
+  - dog_barking_visual  # 狗-吠叫(视觉)

@@ -133,6 +133,32 @@ cd ../yolov5n-v6.2
 
 **Dataset Location:** `../datasets/processed/stationery_4200/`
 
+### Cat & Dog Postures Dataset (Auto-labeled by LLM)
+
+This project demonstrates an innovative workflow using a Large Language Model (LLM) to assist in generating object detection labels.
+
+**Workflow:**
+1.  **Prepare Initial Data**: Start with a base object detection dataset containing two classes: "cat" and "dog" (`cat_dog_8000`).
+2.  **LLM Posture Recognition**: The `cat_dog_postures-process.sh` script iterates through each image and sends it to a local multimodal large model (e.g., Qwen-VL).
+3.  **Auto-generate New Labels**: The LLM identifies the specific posture of the cat or dog in the image (16 classes in total, such as `cat_lying`, `dog_sitting`, etc.). The script then automatically modifies the original `.txt` label file, updating the class ID to the new posture ID.
+4.  **Create New Dataset**: The final output is a new dataset, ready for training a 16-class posture detection model.
+
+**Quick Start:**
+```bash
+# 1. (Prerequisite) Ensure you have a local LLM API service running
+#    and have configured the API_URL in cat_dog_postures-process.sh
+
+# 2. Generate the posture dataset
+cd ../datasets
+./cat_dog_postures-process.sh
+
+# 3. Return and start training
+cd ../yolov5n-v6.2
+./train_cat_dog_postures.sh
+```
+
+**Dataset Location:** `../datasets/processed/cat_dog_postures/`
+
 ### Using Custom Datasets
 
 To use other datasets, edit the `DATASET_YAML` path in the training script.
@@ -189,7 +215,9 @@ DEVICE="0"           # GPU device (0=first GPU, "cpu"=CPU)
 | Script | Purpose | Dataset | Classes |
 |--------|---------|---------|---------|
 | `train.sh` | General training script | cat_dog_8000 | 8 |
-| `train_stationery.sh` | Stationery dataset training | stationery_4200 | 80 |
+| `train_cat_dog_postures.sh` | Cat & Dog Postures training | cat_dog_postures | 16 |
+| `train_stationery.sh` | Stationery dataset training | stationery_32class | 32 |
+
 
 ### Dataset Scripts
 

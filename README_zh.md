@@ -131,6 +131,32 @@ cd ../yolov5n-v6.2
 
 **数据集位置：** `../datasets/processed/stationery_4200/`
 
+### 猫狗姿态数据集 (LLM 自动标注)
+
+这是一个创新的工作流，展示了如何利用大型语言模型（LLM）来辅助生成目标检测的标注。
+
+**工作流程:**
+1.  **准备原始数据**: 一个包含“猫”和“狗”两类目标检测的数据集 (`cat_dog_8000`)。
+2.  **LLM 姿态识别**: 脚本 `cat_dog_postures-process.sh` 会遍历每张图片，将其提交给一个本地的多模态大模型（如 Qwen-VL）。
+3.  **自动生成新标签**: 大模型会识别出图片中猫或狗的具体姿态（共16种，如 `cat_lying`, `dog_sitting` 等），脚本根据这个结果，自动修改原始的 `.txt` 标签文件，将类别 ID 更新为新的姿态 ID。
+4.  **生成新数据集**: 最终生成一个新的、可以直接用于训练16类姿态检测模型的数据集。
+
+**快速开始:**
+```bash
+# 1. (前置要求) 确保你有一个本地大模型API服务在运行
+#    并已在 cat_dog_postures-process.sh 中配置好 API_URL
+
+# 2. 生成姿态数据集
+cd ../datasets
+./cat_dog_postures-process.sh
+
+# 3. 返回并开始训练
+cd ../yolov5n-v6.2
+./train_cat_dog_postures.sh
+```
+
+**数据集位置:** `../datasets/processed/cat_dog_postures/`
+
 ### 使用自定义数据集
 
 如需使用其他数据集，编辑训练脚本中的 `DATASET_YAML` 路径。
@@ -187,7 +213,9 @@ DEVICE="0"           # GPU设备 (0=第一块GPU, "cpu"=CPU)
 | 脚本 | 用途 | 数据集 | 类别数 |
 |------|------|--------|--------|
 | `train.sh` | 通用训练脚本 | cat_dog_8000 | 8 |
-| `train_stationery.sh` | 文具数据集训练 | stationery_4200 | 80 |
+| `train_cat_dog_postures.sh` | 猫狗姿态数据集训练 | cat_dog_postures | 16 |
+| `train_stationery.sh` | 文具数据集训练 | stationery_32class | 32 |
+
 
 ### 数据集脚本
 
