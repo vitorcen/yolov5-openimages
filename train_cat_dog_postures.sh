@@ -14,6 +14,11 @@ DEVICE="0" # GPU device, e.g., "0" or "0,1" or "cpu"
 # --- Run Name (Auto-generated) ---
 RUN_NAME="${MODEL_CONFIG%.*}_epochs${EPOCHS}_batch${BATCH_SIZE}_img${IMAGE_SIZE}"
 
+# --- Activate conda environment ---
+echo "Activating conda environment..."
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate yolov5_v62
+
 # --- Start Training ---
 echo "Starting YOLOv5 training..."
 echo "  Project: $PROJECT_NAME"
